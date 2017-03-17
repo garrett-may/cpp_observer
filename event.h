@@ -4,7 +4,8 @@
 
 namespace event
 {
-		
+
+// Event class		
 class Event
 {
 protected:

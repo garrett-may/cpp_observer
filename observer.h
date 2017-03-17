@@ -5,20 +5,6 @@
 #include <typeindex>
 #include <typeinfo>
 
-namespace observer
-{
-
-template <typename T>
-void addEventHandler(void (*handler)(T));
-
-template <typename T>
-bool removeEventHandler(void (*handler)(T));
-
-template <typename T>
-void fire(T& t);
-
-}
-
 template <typename T>
 using Handler = void (*)(T);
 
@@ -28,6 +14,7 @@ std::unordered_map<std::type_index, std::vector<Handler<T>>> map;
 namespace observer
 {
 
+// Adds an event handler for subscription
 template <typename T>
 void addEventHandler(Handler<T> handler)
 {
@@ -38,6 +25,7 @@ void addEventHandler(Handler<T> handler)
 	map<T>[typeid(T)] = handlers;
 }
 
+// Removes an event handler from subscription
 template <typename T>
 bool removeEventHandler(Handler<T> handler)
 {
@@ -57,6 +45,7 @@ bool removeEventHandler(Handler<T> handler)
 	return isRemoved;
 }
 
+// Fires a type, calling the necessary event handlers
 template <typename T>
 void fire(T& t)
 {
